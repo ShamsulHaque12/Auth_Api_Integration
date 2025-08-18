@@ -35,7 +35,7 @@ class OtpController extends GetxController {
   Future<void> verifyOtp(String email) async {
     try {
       var headers = {'Content-Type': 'application/json'};
-      var url = Uri.parse("https://fzjn9pz1-5000.inc1.devtunnels.ms/api/v1/auth/verify-otp-signup");
+      var url = Uri.parse("http://172.252.13.71:5101/api/v1/auth/verify-otp-signup");
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var getemail = prefs.getString('email');
@@ -73,10 +73,40 @@ class OtpController extends GetxController {
     }
   }
 
-  void resendCode() {
-    // Call to resend OTP
-    Get.snackbar("Resent", "New OTP sent to your email");
-    startTimer(); // Restart the timer
+  Future<void> resendCode(String email)async {
+
+    try{
+      var headers = {'Content-Type': 'application/json'};
+      var url = Uri.parse("http://172.252.13.71:5101/api/v1/auth/resend-otp-signup");
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var getemail = prefs.getString('email');
+      // Prepare the request body
+      var body = {
+        'email': getemail,
+      };
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: jsonEncode(body),
+      );
+      var data = jsonDecode(response.body) ;
+      print("status code ${response.statusCode}");
+      print("api data : ${data}");
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Call to resend OTP
+        Get.snackbar("Resent", "New OTP sent to your email");
+        startTimer();
+      } else {
+        // Error while verifying OTP
+        final responseBody = jsonDecode(response.body);
+        Get.snackbar("Error", responseBody['message'] ?? "Invalid OTP");
+        print("Invalid OTP");
+      }
+
+    }catch(e){
+      Get.snackbar("Error", e.toString());
+    }
+
   }
 
   @override

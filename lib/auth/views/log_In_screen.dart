@@ -44,7 +44,9 @@ class LogInScreen extends StatelessWidget {
             ),
             SizedBox(height: 20,),
             Center(
-              child: ElevatedButton(onPressed: (){},
+              child: ElevatedButton(onPressed: (){
+                logInController.logIn(logInController.emailController.text, logInController.passwordController.text);
+              },
                   child: Text("Sign In")),
             )
           ],

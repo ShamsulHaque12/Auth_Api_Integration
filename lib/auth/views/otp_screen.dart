@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/otp_controller.dart';
 import '../controller/sign_in_controller.dart';
 import 'custom_button.dart';
-import 'sign_in_screen.dart';
 
 class OtpScreen extends StatefulWidget {
 
@@ -23,8 +22,6 @@ class _OtpScreenState extends State<OtpScreen> {
   final OtpController controller = Get.put(OtpController());
 
   final SignInController controller1 = Get.put(SignInController());
-
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
   void initState() {
@@ -120,19 +117,27 @@ class _OtpScreenState extends State<OtpScreen> {
               Obx(
                     () => TextButton(
                   onPressed: controller.timer.value == 0
-                      ? controller.resendCode
+                      ? () async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    var email = prefs.getString('email');
+                    if (email != null) {
+                      controller.resendCode(email);
+                    } else {
+                      // Handle case where email is not found
+                      Get.snackbar("Error", "Email not found");
+                    }
+                  }
                       : null,
                   child: Text(
-                    "Resend OTP : (00:${(controller.timer.value)})",
+                    "Resend OTP : (00:${controller.timer.value.toString().padLeft(2, '0')})",
                     style: TextStyle(
-                      color: controller.timer.value == 0
-                          ? Colors.white
-                          : Colors.grey,
+                      color: controller.timer.value == 0 ? Colors.white : Colors.grey,
                       decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
               ),
+
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

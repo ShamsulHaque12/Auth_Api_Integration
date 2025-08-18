@@ -12,14 +12,12 @@ class SignInController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
   // Function to register with email and send OTP
   Future<void> registerWithEmail() async {
     try {
       var headers = {'Content-Type': 'application/json'};
       var url = Uri.parse(
-        "https://fzjn9pz1-5000.inc1.devtunnels.ms/api/v1/users/register",
+        "http://172.252.13.71:5101/api/v1/users/register",
       );
 
       var body = {
