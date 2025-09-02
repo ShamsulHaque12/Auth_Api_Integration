@@ -1,16 +1,26 @@
-# auth_page_api
+# API Integration Flutter App
 
-A new Flutter project.
+This project is a Flutter application demonstrating API integration using [Fake Store API](https://fakestoreapi.com/). It displays a grid of products and allows viewing detailed information for each product.
+
+## Features
+
+- Fetches product data from a REST API.
+- Displays products in a responsive grid.
+- Shows detailed information for each product.
+- Uses [GetX](https://pub.dev/packages/get) for navigation.
+- Includes loading and error states.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter SDK](https://flutter.dev/docs/get-started/install)
+- Dart (comes with Flutter)
+- Android Studio, VS Code, or any preferred IDE
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Clone the repository:**
+   ```sh
+   git clone <your-repo-url>
+   cd apiintegration
