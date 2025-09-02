@@ -22,5 +22,5 @@ This project is a Flutter application demonstrating API integration using [Fake 
 
 1. **Clone the repository:**
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/ShamsulHaque12/Auth_Api_Integration.git
    cd apiintegration
